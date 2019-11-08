@@ -34,6 +34,72 @@
       // .data() 要素のdata属性を取得します。
       // .width() 要素の幅を取得します。
       // .length 要素の個数を取得します。
+      $(function(){
+        var positionNum = 0;
+        var slideWidth = $('.slider-list').find('li').width();
+        var slideNum = $('.slider-list').find('li').length;
+        var flag = true;
+        var sliding = function(){
+          if(positionNum < 0){
+            positionNum = slideNum - 1;
+          }else if(positionNum > slideNum - 1){
+            positionNum = 0;
+          }
+          $('.slider-list').stop(true,false).animate({
+            'marginLeft': -slideWidth*positionNum},800);//Right,
+        }
+        $('.slider-ctrl-btn').click(function(){
+          if(flag){
+            flag = false;
+            setTimeout(function(){
+              flag = true;
+            },800);
+            if($(this).data('ctrl') == 'prev'){
+              positionNum--;
+              sliding();
+            }else{
+              positionNum++;
+              sliding();
+            }
+          }
+        });
+      });
+        // $('.slider-ctrl-btn').click(function(){
+        //   if ($(this).data('ctrl') == 'prev' && positionNum != 0){
+        //     positionNum--;
+        //   }else if ($(this).data('ctrl') == 'prev' && positionNum == 0){
+        //     positionNum = slideNum-1;
+        //   }else if ($(this).data('ctrl') == 'next' && positionNum != slideNum-1){
+        //     positionNum++;
+        //   }else{
+        //     positionNum = 0;
+        //   }
+        //   $('.slider-list').stop().animate({
+        //     'marginLeft': -slideWidth*positionNum},800);//Right,
+        // });
+    
+        // var positionNum = 0;
+        // var slideWidth = $('.slider-list').find('li').width();
+        // var slideNum = $('.slider-list').find('li').length;
+        // $('.slider-ctrl-btn').click(function(){
+        // console.log(slideNum);
+        // console.log(slideWidth);
+        // console.log(positionNum);
+        //   if ($(this).data('ctrl') == 'prev' && positionNum != 0){
+        //     positionNum--;
+        //   }else if ($(this).data('ctrl') == 'prev' && positionNum == 0){
+        //     positionNum = slideNum;
+        //   }else if ($(this).data('ctrl') == 'next' && positionNum != slideNum){
+        //     positionNum++;
+        //   }else{
+        //     positionNum = 0;
+        //   }
+        //   var slide = slideWidth*positionNum;
+        //   $('.slider-list').animate({
+        //     'Left': 600},2000);
+        //     console.log(slide);
+        //   });
+        //});
     </script>
   </body>
 </html>

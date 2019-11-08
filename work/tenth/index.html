@@ -68,6 +68,78 @@
       //
       //
       //
-    </script>
+      $(function(){
+        var page = 1;
+        var keyword = "";
+        function init(){
+          $('ul.lists').find('li').remove();
+          $('ul.lists').find('p').empty();
+        }
+        $('.search__btn').click(function(){
+          if(!$('.search__text__input').val().match(/[^\s\t]/) || $('.search__text__input').val() === ""){
+            init();
+            $('ul.lists').append('<p style="text-align: center;">検索文字が認証されませんでした。<br>文字を入力してください。</p>');
+            return false;
+            }
+          // console.log(keyword);
+          // console.log($('.search__text__input').val());
+          if(keyword !== $('.search__text__input').val()){
+            page = 1
+            init();
+          }
+          keyword = $('.search__text__input').val();
+          $.ajax({
+            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522',
+            type: 'GET',
+            datatype: 'json',
+            data: {
+              applicationId: '1019399324990976605',
+              keyword: keyword,
+              booksGenreId: '001',
+              page: page,
+              hits: 20
+            },
+            success: function(data, textStatus, xhr){
+              console.log(xhr.status);
+            },
+            complete: function(xhr, textStatus) {
+              console.log(xhr.status);
+            },
+            statusCode: {
+              400: function(){
+                init();
+                $('ul.lists').append('<p style="text-align: center;">検索文字が認証されませんでした。<br>文字を入力してください。</p>');
+              },
+              429: function(){
+                init();
+                $('ul.lists').append('<p style="text-align: center;">メンテナンス中もしくはクリックの連続によるエラーです。</p>');
+              }
+            }
+          }).done(function(data) {
+              if( data.count > 0){
+                // console.log(data.Items)
+                $('ul.lists').find('p').empty();
+                var bookListtwenty = "";
+                $.each(data.Items, function(index, item){
+                  // console.log(bookListtwenty)
+                  var book = item.Item
+                  bookListtwenty += '<li class="lists__item"><div class="lists__item__inner"><a href="' + book.itemUrl +'"class="lists__item__link" target="_blank"><img src="' + book.largeImageUrl + '" class="lists__item__img" alt="' + book.title +'"><p class="lists__item__detail">作品名：' + book.title + '</p><p class="lists__item__detail">作者　：' + book.author + '</p><p class="lists__item__detail">出版社：' + book.publisherName + '</p></a></div></li>'
+                  // var bookList = [];
+                  // bookList = html('<li class="lists__item"><div class="lists__item__inner"><a href="' + book.itemUrl +'"class="lists__item__link" target="_blank"><img src="' + book.largeImageUrl + '" class="lists__item__img" alt="' + book.title +'"><p class="lists__item__detail">作品名：' + book.title + '</p><p class="lists__item__detail">作者　：' + book.author + '</p><p class="lists__item__detail">出版社：' + book.publisherName + '</p></a></div></li>');
+                }); 
+                $('.lists').prepend(bookListtwenty);
+                page ++;
+              }else if(data.count === 0){
+                init();
+                $('ul.lists').append('<p style="text-align: center;">検索結果が見つかりませんでした。<br>別のキーワードで検索してください。</p>');
+                }
+            })
+            .fail(function(data, textStatus) {
+              init();
+              $('ul.lists').append('<p style="text-align: center;">接続エラーです。インターネット環境を確認してください。</p>');
+            });
+        });
+      });
+    </script>’
   </body>
 </html>

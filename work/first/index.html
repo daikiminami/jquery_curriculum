@@ -69,16 +69,76 @@
 </div>
 <script src="../../common/js/jquery.js"></script>
 <script>
-// 第1問  id='q1'の要素の文字色を赤色にせよ。
-// 第2問  id='q2'の要素をクリックしたら背景色をピンクにせよ。
-// 第3問  id='q3'の要素をクリックしたら2秒かけてフェードアウトさせよ。
-// 第4問  id='q4'の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
-// 第5問  id='q5'の要素をクリックしたらこの要素にlargeというクラスを付与せよ。
-// 第6問  id='q6'の要素をクリックしたらこの要素を2秒かけてmargin-topとmargin-leftを100pxの位置に移動させよ。
-// 第7問  id='q7'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
-// 第8問  id='q8'の要素をhoverしたらlargeというクラスを付与し、hoverが外れたら、クラスを削除せよ。
-// 第9問  id='q9'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
-// 第10問 id='q10'の子要素をクリックしたら、その要素のインデックスと等しいid='q11'の子要素にlargeというクラスを追加せよ。
+
+//jQuery(document).ready(function(){})の略 => $(function(){})
+$(function(){
+  // 第1問  id='q1'の要素の文字色を赤色にせよ。
+
+  $('#q1').css('color', 'red');//id="q1"を指定
+  // 第2問  id='q2'の要素をクリックしたら背景色をピンクにせよ。
+
+  $('#q2').click(function(){
+    $(this).css('background-color', 'cadetblue');
+  });
+  // 第3問  id='q3'の要素をクリックしたら2秒かけてフェードアウトさせよ。
+
+  $('#q3').click(fadeOut);//id=q3を持つ要素がクリックされた時にclick()の()の関数を実行。
+  //fadeOutという関数名の作成
+  function fadeOut(){
+    $(this).fadeOut(2000);
+  }
+  // 第4問  id='q4'の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
+
+  $('#q4').click(function(){ 
+    $(this).prepend('DOMの中の前')
+           .append('DOMの中の後')
+           .before('DOMの中の前')
+           .after('DOMの後');
+  });
+  // 第5問  id='q5'の要素をクリックしたらこの要素にlargeというクラスを付与せよ。
+
+  $('#q5').click(function(){
+    $(this).addClass('large');　//cssに.large {font-size:30px;}が記述されている。
+  });
+  // 第6問  id='q6'の要素をクリックしたらこの要素を2秒かけてmargin-topとmargin-leftを100pxの位置に移動させよ。
+
+  $('#q6').click(function(){
+    $(this).animate({
+      'marginLeft': 100,
+      'marginTop': 100
+    }, 2000);
+  });
+  // 第7問  id='q7'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
+
+  $('#q7').find('li').click(function(){ //find()は指定されたDOMの要素から()内の要素を取ってくるメソッド。
+    
+    var targetNum = $(this).index(); //index()はその要素　(idがq7のDOM構成のclickされたliの要素)　が何番目か教えるメソッド。
+    console.log(targetNum); //コメントアウトしても正常に作動　なぜ重要なのか？ 押した順番がconsole.logに残る
+    alert(targetNum);　//引数の値をアラート表示
+  });
+  // 第8問  id='q8'の要素をhoverしたらlargeというクラスを付与し、hoverが外れたら、クラスを削除せよ。
+
+  $('#q8').hover(function(){      //hover(関数, 関数)の形　hoverメソッドは引数の数で挙動がことなる
+    $(this).addClass('large');    //hover(関数)の場合、hoverした時に関数を実行。
+  }, function(){                  //hover(関数, 関数)の場合、hoverした時に第一引数を実行しhoverが離れた時に第二引数を実行。
+    $(this).removeClass('large');
+  });
+
+  // 第9問  id='q9'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
+
+  $('#q9').click(function(){          //data()はその要素のdata属性を取得もしくはセットするメソッド。
+    var text = $(this).data('text');　//data-text = "jQuery"という記述はDOMに特殊な記述をする方法でjQueryを使うと簡単に取得できる。
+    console.log(text);              　//取得方法はHTMLのdata-〇〇="hoge"はjQueryのdataで('〇〇')で取得できる。
+  });　　　　　　　　　　　　　　　　　　　 //今回の場合、HTML上にdata-text = ”jQuery”のためtext変数に"jQuery"が代入されconsole.log(text)でconsole上に表示される。
+
+  // 第10問 id='q10'の子要素をクリックしたら、その要素のインデックスと等しいid='q11'の子要素にlargeというクラスを追加せよ。
+
+  $('#q10').find('li').click(function(){
+    var num = $(this).index();                      //id=q10のclickされたli要素のindexをnumに入れる。
+    $('#q11').find('li').eq(num).addClass('large'); //eq(num)でその値と等しい値のliをfindしてclassを追加。
+  });
+
+});
 </script>
 </body>
 </html>
