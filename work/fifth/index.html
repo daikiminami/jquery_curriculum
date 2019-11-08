@@ -114,14 +114,16 @@
           var category = $(this).val(); //category変数にselectboxのvalueの要素を入れる。
           // console.log(category);
           $('.list').find('li').hide();
-          $('li').each(function(i, lists){
+          if (category === "all"){
+            $('.list').find('li').show();
+          } else {
+            $('.list li').each(function(i, lists){
             // console.log(category);
-            if (category === "all"){
-              $('.list').find('li').show();
-            }else if($(lists).data('category-type') === category ){
-              $(lists).show();
-            }
-          });
+              if($(lists).data('category-type') === category ){
+                $(lists).show();
+              }
+            });
+          };
         });
       });
     </script>
