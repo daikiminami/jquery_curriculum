@@ -58,18 +58,25 @@
       // .stop() 現在動作中のアニメーション処理を全て中止します。
       $(function(){
      
-        $('.menu__list__title').hover(function(){
-          $(this).next().stop().slideDown(300); //stopにより途中でhoverしたらslideUp,Downが中止される.                        
-        }, function(){
-          $(this).next().stop().slideUp(300);                            
-        });
+        // $('.menu__list__title').hover(function(){
+        //   $(this).next().stop().slideDown(300); //stopにより途中でhoverしたらslideUp,Downが中止される.                        
+        // }, function(){
+        //   $(this).next().stop().slideUp(300);                            
+        // });
 
-        $('.menu__list__childList').hover(function(){
-          $(this).stop().slideDown(300); //stopにより途中でhoverしたらslideUp,Downが中止される。                           
-        }, function(){
-          $(this).stop().slideUp(300);                            
-        });
+        // $('.menu__list__childList').hover(function(){
+        //   $(this).stop().slideDown(300); //stopにより途中でhoverしたらslideUp,Downが中止される。                           
+        // }, function(){
+        //   $(this).stop().slideUp(300);                            
+        // });
 
+        $('.menu__list > li').hover(function(){
+          $(this).children().next().stop().slideDown(300);
+          
+        }, function(){
+          $('.menu__list__title').next().stop().slideUp(300);
+          
+        });
       });
     </script>
   </body>

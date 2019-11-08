@@ -98,16 +98,29 @@
       // .change() セレクトボックスの値の変更をキャッチする関数
       // $().each() DOM要素を1つずつループ処理をする（ループ内で$(this)を使うと要素がひとつずつ取得できる）
       $(function(){
+        // $('.select').change(function(){ //selectboxの値の変化をキャッチ。
+        //   var category = $(this).val(); //category変数にselectboxのvalueの要素を入れる。
+        //   // console.log(category);
+        //   $('.list').find('li').hide();
+        //   $('li').each(function(){
+        //     // console.log(category);
+        //     if ($(this).data('category-type') == category || category == 'all'){
+        //       $(this).show();
+        //     }
+        //     // console.log($(this).data('category-type'));
+        //   });
+        // });
         $('.select').change(function(){ //selectboxの値の変化をキャッチ。
           var category = $(this).val(); //category変数にselectboxのvalueの要素を入れる。
           // console.log(category);
           $('.list').find('li').hide();
-          $('li').each(function(){
+          $('li').each(function(i, lists){
             // console.log(category);
-            if ($(this).data('category-type') == category || category == 'all'){
-              $(this).show();
+            if (category === "all"){
+              $('.list').find('li').show();
+            }else if($(lists).data('category-type') === category ){
+              $(lists).show();
             }
-            // console.log($(this).data('category-type'));
           });
         });
       });

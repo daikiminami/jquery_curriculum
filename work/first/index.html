@@ -39,10 +39,11 @@
   <h2 class="sub-title">Q7</h2>
   <div class="question">
     <ul class="list" id="q7">
-      <li>Q7-1</li>
-      <li>Q7-2</li>
-      <li>Q7-3</li>
-      <li>Q7-4</li>
+      <li>Q7-0</li>
+      <li class="list-item">Q7-1</li>
+      <li class="list-item">Q7-2</li>
+      <li class="list-item">Q7-3</li>
+      <li class="list-item">Q7-4</li>
     </ul>
   </div>
   <h2 class="sub-title">Q8</h2>
@@ -110,7 +111,7 @@ $(function(){
   });
   // 第7問  id='q7'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
 
-  $('#q7').find('li').click(function(){ //find()は指定されたDOMの要素から()内の要素を取ってくるメソッド。
+  $('#q7').find('.list-item').click(function(){ //find()は指定されたDOMの要素から()内の要素を取ってくるメソッド。
     
     var targetNum = $(this).index(); //index()はその要素　(idがq7のDOM構成のclickされたliの要素)　が何番目か教えるメソッド。
     console.log(targetNum); //コメントアウトしても正常に作動　なぜ重要なのか？ 押した順番がconsole.logに残る
@@ -127,7 +128,7 @@ $(function(){
   // 第9問  id='q9'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
 
   $('#q9').click(function(){          //data()はその要素のdata属性を取得もしくはセットするメソッド。
-    var text = $(this).data('text');　//data-text = "jQuery"という記述はDOMに特殊な記述をする方法でjQueryを使うと簡単に取得できる。
+    var text = $(this).data();　//data-text = "jQuery"という記述はDOMに特殊な記述をする方法でjQueryを使うと簡単に取得できる。
     console.log(text);              　//取得方法はHTMLのdata-〇〇="hoge"はjQueryのdataで('〇〇')で取得できる。
   });　　　　　　　　　　　　　　　　　　　 //今回の場合、HTML上にdata-text = ”jQuery”のためtext変数に"jQuery"が代入されconsole.log(text)でconsole上に表示される。
 

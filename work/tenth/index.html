@@ -125,8 +125,9 @@
                 $('.lists').prepend(bookListtwenty);
                 page ++;
               }else if(data.count === 0){
-                init();
-                $('ul.lists').append('<p style="text-align: center;">検索結果が見つかりませんでした。<br>別のキーワードで検索してください。</p>');
+                // init();
+                $('ul.lists').find('p').empty();
+                $('ul.lists').prepend('<p style="text-align: center;">検索結果が見つかりませんでした。<br>別のキーワードで検索してください。</p>');
                 }
             }).fail(function(data, textStatus) {
                 init();
